@@ -1,0 +1,98 @@
+diff --git a/README.md b/README.md
+index efb61e6..a25ea15 100644
+--- a/README.md
++++ b/README.md
+@@ -11,76 +11,38 @@ A production-grade SaaS web app that helps job seekers track, optimize, and succ
+ ## ✨ Features
+ 
+ - **🧠 AI Resume Analysis**: Upload a resume (PDF) and Job Description to get an ATS Match Score, missing skills, and improvement suggestions.
+-- **📝 AI Cover Letter Generator**: Automatically write perfectly tailored cover letters in formal, friendly, or startup tones.
+-- **🎤 AI Mock Interview Prep**: Generates 5 predicted interview questions with STAR method answer tips based on your specific resume gaps.
+-- **📊 ATS Format Checker**: Structural PDF analysis that flags tables, images, and formatting issues that break Applicant Tracking Systems.
++- **📝 AI Cover Letter Generator**: Automatically write perfectly tailored cover letters in formal, friendly, or startup tones. **Export to PDF included!**
++- **🎤 AI Mock Interview Prep**: Generates 5 predicted interview questions with STAR method answer tips.
++- **📧 AI Cold Email Generator**: Create personalized networking messages for recruiters based on your resume and the job role.
++- **📊 ATS Format Checker**: Structural PDF analysis that flags formatting issues that break Applicant Tracking Systems.
+ - **📋 Kanban Board**: Drag-and-drop job tracking (Applied → Interview → Offer → Rejected).
+-- **🔔 Real-Time Notifications**: In-app notification bell alerts you when AI tasks complete.
+-- **✉️ Automated Email Reminders**: Background Cron jobs automatically remind you to follow up on aging applications.
+-- **📈 Advanced Analytics Dashboard**: Visualize your pipeline with bar charts and donut charts.
++- **🧩 Chrome Extension**: Save jobs directly from LinkedIn to your tracker with a single click.
++- **✉️ Automated Email Reminders**: Background jobs that remind you to follow up on applications.
+ 
+ ## 🏗️ Architecture
+ 
+-This project uses a modern microservices architecture:
+-
+-1. **Frontend**: React (Vite) + Tailwind CSS v4 + Recharts + Lucide Icons.
+-2. **Backend API**: Node.js + Express + Prisma ORM + PostgreSQL. Handles Auth (JWT), CRUD, and Cloudinary PDF storage.
+-3. **AI Microservice**: Python FastAPI + Google Gemini AI + `pdfplumber`. Isolated service specifically for heavy AI prompts and PDF parsing.
++1. **Frontend**: React (Vite) + Tailwind CSS + Recharts + Framer Motion.
++2. **Backend API**: Node.js + Express + Prisma ORM + PostgreSQL.
++3. **AI Microservice**: Python FastAPI + Google Gemini AI.
+ 
+ ## 🚀 Quick Start (Docker)
+ 
+-The easiest way to run the entire stack (Database, Node API, Python AI, React Frontend) is using Docker Compose.
+-
+-1. Clone the repository:
++1. Clone and enter the directory:
+    ```bash
+    git clone https://github.com/yourusername/job-tracker.git
+    cd job-tracker
+    ```
+-
+-2. Create `.env` files:
+-   - In `backend/.env`: Add your `DATABASE_URL`, `JWT_SECRET`, `CLOUDINARY_*` keys, and `EMAIL_*` credentials.
+-   - In `ai-service/.env`: Add your `GEMINI_API_KEY`.
+-
+-3. Run the stack:
++2. Run the stack:
+    ```bash
+    docker-compose up --build
+    ```
++3. Open `http://localhost:5173`!
+ 
+-4. Open `http://localhost:5173` in your browser!
+-
+-## 💻 Manual Setup
+-
+-If you prefer to run the services individually:
+-
+-**1. Database & Backend:**
+-```bash
+-cd backend
+-npm install
+-npx prisma db push
+-npm run dev
+-```
+-
+-**2. Python AI Service:**
+-```bash
+-cd ai-service
+-pip install -r requirements.txt
+-python -m uvicorn main:app --reload --port 8000
+-```
+-
+-**3. Frontend:**
+-```bash
+-cd frontend
+-npm install
+-npm run dev
+-```
+-
+-## 🔒 Security
+-- Passwords hashed using `bcryptjs`.
+-- Route protection using stateless JWT tokens.
+-- Secure Cloudinary upload streaming via memory buffers (files never touch the local disk).
++## 🧩 Chrome Extension Setup
++1. Go to `chrome://extensions/` in your browser.
++2. Enable **Developer Mode**.
++3. Click **Load Unpacked** and select the `chrome-extension` folder.
++4. *Note: Update the URLs in `popup.js` to match your deployed backend.*
+ 
+ ## 👨‍💻 Author
+ Built by [Your Name]
+-
+----
+-*Note: Ensure you do not commit your `.env` files to GitHub.*

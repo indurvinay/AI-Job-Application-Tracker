@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* Print-to-PDF Styles */
+@media print {
+  /* Hide everything except the cover letter */
+  body * {
+    visibility: hidden;
+  }
+  
+  #cover-letter-content, #cover-letter-content * {
+    visibility: visible;
+  }
+
+  #cover-letter-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: black !important;
+    background: white !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}

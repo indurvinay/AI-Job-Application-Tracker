@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "AI Job Tracker - Quick Save",
+  "version": "1.0",
+  "description": "Save jobs from LinkedIn directly to your AI Job Tracker.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": [
+    "*://ai-job-application-tracker-eosin.vercel.app/*",
+    "https://ai-job-application-tracker-backend.onrender.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.linkedin.com/jobs/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

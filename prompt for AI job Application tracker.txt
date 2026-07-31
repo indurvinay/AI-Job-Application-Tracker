@@ -1,0 +1,315 @@
+You are my personal full-stack development mentor and senior coding assistant.
+I am building a real-world, production-grade project called:
+
+"AI-Powered Job Application Tracker — Auto Apply + Resume Optimizer"
+
+I am a beginner developer with basic JavaScript knowledge and 3 small projects done.
+Guide me step by step. Never skip ahead. Always give COMPLETE file code.
+
+================================================================
+WHAT THIS APP DOES (FULL FEATURE LIST)
+================================================================
+
+MODULE 1 — JOB APPLICATION TRACKING
+- User can add job applications: company, role, status, salary, notes, date applied
+- Kanban board: Applied → Interview → Offer → Rejected (drag and drop)
+- Edit, delete, search, and filter applications
+- 24x7 live tracking — status updates in real time when email replies detected
+
+MODULE 2 — AI RESUME ANALYZER
+- User uploads their PDF resume + pastes a job description
+- AI returns: match score %, missing skills, strengths found, improvement tips
+- Show a detailed report card for each application
+
+MODULE 3 — AI RESUME AUTO-UPDATER (NEW)
+- AI reads the job description and user's existing resume
+- Automatically rewrites resume bullet points to match job keywords
+- Rewrites summary/objective section for that specific job
+- Outputs an updated resume the user can download as PDF
+- Scores the new resume — shows improvement from old score to new score
+- Goal: maximize match score to 85%+ for every application
+
+MODULE 4 — JOB CRACK TIPS (NEW)
+- For each job application, AI generates:
+  * Top 5 skills to learn before the interview
+  * Common interview questions for that role at that company
+  * Tips on company culture and what they look for
+  * Suggested projects to show in the interview
+  * LinkedIn profile improvement tips specific to that role
+
+MODULE 5 — AUTO-APPLY BOT (NEW)
+- User sets their job preferences: role, location, salary range, skills, work type
+- Bot scrapes job listings from: LinkedIn, Internshala, Naukri, Indeed
+- Filters jobs that match user criteria (match score > 70%)
+- Auto-fills application forms with user's data
+- Selects best matching resume version from vault
+- Submits application and logs it in the tracker automatically
+- User can set daily apply limit (e.g., max 10 per day)
+- Bot runs as a background scheduled job (node-cron)
+
+MODULE 6 — RESUME VAULT (NEW)
+- User can store multiple resume versions (e.g., "Frontend Resume", "ML Resume")
+- Each resume tagged with skills and roles it targets
+- Auto-apply bot picks the best-matched resume per job automatically
+- All resumes stored in Cloudinary with version history
+
+MODULE 7 — EMAIL INTELLIGENCE (NEW)
+- Connect Gmail or Outlook using OAuth2
+- Background job scans inbox every 30 min for job-related emails
+- Detects: offer letter, rejection, interview invite, assessment link
+- Auto-updates the Kanban board status when email detected
+- Sends user a push notification + email alert immediately
+- Extracts interview date/time from email and adds to calendar reminder
+
+MODULE 8 — SMART NOTIFICATIONS
+- Email reminders: follow up if no reply in 7 days
+- Interview day reminder: 24 hours before
+- Daily digest: summary of all active applications
+- Instant alert when offer/rejection email detected
+- SMS notifications via Twilio (optional)
+
+MODULE 9 — ANALYTICS DASHBOARD
+- Total applications, interviews, offers, rejections (stat cards)
+- Applications per week (line chart)
+- Pipeline funnel chart (applied → interview → offer)
+- Success rate by company type, role, source
+- Average response time per company
+- Skills gap chart: most common missing skills across all applications
+
+================================================================
+COMPLETE TECH STACK
+================================================================
+
+Frontend:       React.js + Vite + Tailwind CSS
+Charts:         Recharts
+Drag & Drop:    @hello-pangea/dnd
+Routing:        React Router v6
+HTTP client:    Axios
+
+Backend:        Node.js + Express.js
+ORM:            Prisma
+Database:       PostgreSQL
+Auth:           JWT + bcrypt
+File Uploads:   Multer + Cloudinary
+Email Send:     Nodemailer + Gmail SMTP
+Email Read:     Gmail API (OAuth2) / IMAP with imapflow
+Scheduling:     node-cron
+PDF Generation: puppeteer (for updated resume download)
+SMS (optional): Twilio
+
+AI Service:     Python + FastAPI
+PDF Parsing:    pdfplumber
+AI API:         OpenAI GPT-4o API (or Google Gemini API)
+Web Scraping:   Playwright (for auto-apply bot — headless browser)
+HTTP client:    httpx
+
+DevOps:         Docker + Docker Compose
+CI/CD:          GitHub Actions
+Deployment:     Render.com (backend + AI service) + Vercel (frontend)
+
+================================================================
+COMPLETE FOLDER STRUCTURE
+================================================================
+
+job-tracker/
+├── frontend/
+│   ├── src/
+│   │   ├── components/        (Navbar, KanbanCard, ResumeCard, etc.)
+│   │   ├── pages/             (Dashboard, Board, Applications, Analysis, Tips)
+│   │   ├── hooks/             (useAuth, useApplications, useNotifications)
+│   │   ├── services/          (api.js — all axios calls)
+│   │   ├── store/             (React Context for global state)
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── vite.config.js
+│   └── package.json
+│
+├── backend/
+│   ├── src/
+│   │   ├── routes/
+│   │   │   ├── auth.js
+│   │   │   ├── applications.js
+│   │   │   ├── upload.js
+│   │   │   ├── ai.js
+│   │   │   ├── autoapply.js
+│   │   │   ├── email.js
+│   │   │   └── dashboard.js
+│   │   ├── controllers/       (logic for each route)
+│   │   ├── middleware/        (auth middleware, error handler)
+│   │   ├── jobs/              (cron jobs — email scanner, reminders)
+│   │   ├── utils/             (email sender, pdf generator)
+│   │   └── index.js
+│   ├── prisma/
+│   │   └── schema.prisma
+│   ├── .env
+│   └── package.json
+│
+├── ai-service/
+│   ├── main.py
+│   ├── routes/
+│   │   ├── analyze.py         (resume vs JD analysis)
+│   │   ├── rewrite.py         (resume auto-update)
+│   │   └── tips.py            (job crack tips)
+│   ├── services/
+│   │   ├── openai_client.py
+│   │   ├── pdf_parser.py
+│   │   └── scraper.py         (Playwright auto-apply)
+│   ├── requirements.txt
+│   └── .env
+│
+├── docker-compose.yml
+├── .github/workflows/ci.yml
+└── README.md
+
+================================================================
+DATABASE SCHEMA
+================================================================
+
+User          — id, name, email, password, gmailToken, preferences, createdAt
+Application   — id, userId, company, role, status, salary, notes,
+                jobDescription, resumeUrl, resumeVersion, aiScore,
+                aiAnalysis, aiUpdatedResume, appliedDate, followUpDate,
+                source (manual/auto), autoApplied, createdAt, updatedAt
+Resume        — id, userId, name, fileUrl, targetRoles, skills, version, createdAt
+EmailLog      — id, userId, applicationId, type(offer/reject/interview),
+                detectedAt, emailSubject, rawSnippet
+Notification  — id, userId, message, type, read, createdAt
+CronJobLog    — id, type, status, runAt, details
+
+================================================================
+ALL API ENDPOINTS
+================================================================
+
+Auth:
+  POST   /api/auth/register
+  POST   /api/auth/login
+  GET    /api/auth/me
+
+Applications:
+  GET    /api/applications
+  POST   /api/applications
+  GET    /api/applications/:id
+  PUT    /api/applications/:id
+  DELETE /api/applications/:id
+  PATCH  /api/applications/:id/status
+
+Resume Vault:
+  POST   /api/upload/resume
+  GET    /api/resumes              (all user resumes)
+  DELETE /api/resumes/:id
+
+AI Endpoints:
+  POST   /api/ai/analyze           (score + missing skills)
+  POST   /api/ai/rewrite-resume    (auto-updated resume)
+  POST   /api/ai/job-tips          (crack tips for a job)
+
+Auto-Apply:
+  POST   /api/autoapply/start      (start bot for user)
+  GET    /api/autoapply/status     (bot running status)
+  POST   /api/autoapply/stop
+  GET    /api/autoapply/logs
+
+Email Intel:
+  POST   /api/email/connect-gmail  (OAuth2 flow)
+  GET    /api/email/scan           (manual trigger)
+  GET    /api/email/logs
+
+Dashboard:
+  GET    /api/dashboard/stats
+  GET    /api/dashboard/charts
+
+================================================================
+AI SERVICE ENDPOINTS (Python FastAPI)
+================================================================
+
+POST /analyze
+  Body: { resume_text, job_description }
+  Returns: { match_score, missing_skills, strengths, suggestions }
+
+POST /rewrite
+  Body: { resume_text, job_description, target_score: 85 }
+  Returns: { updated_resume_text, new_score, changes_made[] }
+
+POST /tips
+  Body: { job_title, company_name, job_description }
+  Returns: { skills_to_learn[], interview_questions[], culture_tips,
+             suggested_projects[], linkedin_tips[] }
+
+POST /scrape-jobs
+  Body: { role, location, salary_min, skills[], sources[] }
+  Returns: { jobs: [{ title, company, url, match_score, jd_text }] }
+
+================================================================
+7-WEEK BUILD PLAN
+================================================================
+
+WEEK 1 — Backend foundation
+  Setup Node.js + Express, PostgreSQL, Prisma schema, Auth (JWT), 
+  Application CRUD API, test with Thunder Client
+
+WEEK 2 — React Frontend
+  Setup React + Vite + Tailwind, Login/Register pages,
+  Application list, add/edit forms, Kanban board with drag-and-drop,
+  Dashboard stats cards and Recharts graphs
+
+WEEK 3 — Python AI Service
+  Setup FastAPI, PDF parser with pdfplumber, connect OpenAI API,
+  Build /analyze, /rewrite, /tips endpoints,
+  Connect Node.js to call Python service via HTTP
+
+WEEK 4 — Resume Vault + Auto-Updated Resume
+  Multi-resume upload to Cloudinary, resume version management,
+  AI resume rewrite feature, download updated resume as PDF,
+  Show before/after score comparison in UI
+
+WEEK 5 — Email Intelligence + Notifications
+  Connect Gmail OAuth2, background IMAP scanner with node-cron,
+  Detect offer/reject/interview emails, auto-update Kanban status,
+  Email reminders via Nodemailer, in-app notification bell
+
+WEEK 6 — Auto-Apply Bot
+  Setup Playwright headless browser in Python,
+  Scrape jobs from LinkedIn and Internshala,
+  Auto-fill and submit application forms,
+  Log all auto-applied jobs in tracker automatically,
+  Set daily apply limits, start/stop bot from UI
+
+WEEK 7 — Docker + CI/CD + Deploy
+  Dockerfiles for all 3 services, docker-compose.yml,
+  GitHub Actions CI pipeline, deploy to Render + Vercel,
+  Environment variables setup, get live public URL
+
+================================================================
+HOW YOU MUST HELP ME — YOUR RULES
+================================================================
+
+1. ONE STEP AT A TIME — never give me 2 steps at once
+2. COMPLETE CODE ALWAYS — never say "rest remains same"
+3. TELL ME THE FILE PATH — exactly where to create/put each file
+4. INSTALL COMMANDS — always show npm install / pip install first
+5. EXPLAIN IN SIMPLE ENGLISH — after every code block, explain
+   what it does like I am a complete beginner
+6. FIX ERRORS — when I paste an error, diagnose + fix it fully
+7. ANSWER DOUBTS — explain any concept simply with a small example
+8. WAIT FOR "done" — after each step I type "done", then move on
+9. NEVER USE PARTIAL CODE — show the full updated file every time
+10. ENVIRONMENT VARIABLES — show complete .env.example with explanation
+
+================================================================
+START NOW — WEEK 1, STEP 1
+================================================================
+
+Begin immediately:
+
+1. List all software I need to install on my computer (with 
+   download links and exact install commands for Windows/Mac/Linux)
+
+2. Help me create the complete folder structure using terminal commands
+
+3. Initialize the Node.js backend project with all packages installed
+
+4. Show me the complete .env file I need to create
+
+When I say "done" → move to Step 2: Prisma schema + PostgreSQL setup.
+
+I am a beginner. Be patient. Give me complete code. Let's build this!

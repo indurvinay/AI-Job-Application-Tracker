@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      width: 300px;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: white;
+      margin: 0;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #8b5cf6;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 10px;
+      text-align: center;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    label {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    input {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #1e293b;
+      background: #1e293b;
+      color: white;
+      outline: none;
+    }
+    input:focus {
+      border-color: #8b5cf6;
+    }
+    button {
+      padding: 10px;
+      background: linear-gradient(to right, #8b5cf6, #d946ef);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    button:disabled {
+      background: #334155;
+      cursor: not-allowed;
+    }
+    #status {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 5px;
+    }
+    .success { color: #10b981; }
+    .error { color: #ef4444; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">AI Job Tracker</div>
+    
+    <div class="form-group">
+      <label>Job Title</label>
+      <input type="text" id="jobTitle" placeholder="Enter job title">
+    </div>
+
+    <div class="form-group">
+      <label>Company</label>
+      <input type="text" id="company" placeholder="Enter company name">
+    </div>
+
+    <div class="form-group">
+      <label>Job URL</label>
+      <input type="text" id="jobUrl" placeholder="LinkedIn URL">
+    </div>
+
+    <button id="saveBtn">Save to Tracker</button>
+    <div id="status"></div>
+    
+    <div style="font-size: 10px; color: #64748b; text-align: center; margin-top: 10px;">
+      Make sure you are logged in on the web app!
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
