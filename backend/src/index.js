@@ -5,38 +5,38 @@ const authRoutes = require('./routes/authRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const aiRoutes = require('./routes/aiRoutes');
-const notificationRoutes = require('./routes/notificationRoutes'); // <--- NEW
+const notificationRoutes = require('./routes/notificationRoutes');
 const { startCronJobs } = require('./jobs/reminderCron');
 
-
-// Load environment variables from our .env file
 dotenv.config();
 
-// Initialize the Express app
 const app = express();
 
-// Middleware
-app.use(cors()); // Allows our React frontend to talk to this backend safely
-app.use(express.json()); // Allows our backend to understand JSON data sent in requests
+app.use(cors());
+app.use(express.json());
 
-// Import and use routes
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/applications', applicationRoutes);  
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/ai', aiRoutes);
-app.use('/api/notifications', notificationRoutes); // <--- NEW
+app.use('/api/notifications', notificationRoutes);
 
-// A simple test route to check if the server is running
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'online', message: 'NexusJob AI Career Suite API running on Vercel' });
+});
+
 app.get('/', (_req, res) => {
-  res.send('Job Tracker API is running!');
+  res.send('NexusJob AI Career Suite API is running!');
 });
 
-// Start the server
+// Start server locally (outside Vercel serverless environment)
 const PORT = process.env.PORT || 5000;
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  startCronJobs();
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
-// Start background tasks
-startCronJobs();
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+module.exports = app;
