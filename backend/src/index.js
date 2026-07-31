@@ -23,16 +23,16 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/notifications', notificationRoutes);
 
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'online', message: 'NexusJob AI Career Suite API running on Vercel' });
+  res.json({ status: 'online', message: 'NexusJob AI Career Suite API running' });
 });
 
 app.get('/', (_req, res) => {
   res.send('NexusJob AI Career Suite API is running!');
 });
 
-// Start server locally (outside Vercel serverless environment)
+// Start server on Render, GAE, Docker, or local (except Vercel serverless functions)
 const PORT = process.env.PORT || 5000;
-if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+if (!process.env.VERCEL) {
   startCronJobs();
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
